@@ -14,7 +14,6 @@ async function bootstrap() {
     .setTitle('Datano Backend')
     .setDescription('API Description')
     .setVersion('1.2')
-    .addTag('Datano')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api', app, document);

@@ -20,11 +20,43 @@ let AppService = class AppService {
         return Users;
     }
     async getUser(email) {
-        const user = prisma.uzer.findMany({
+        const user = await prisma.uzer.findMany({
             where: {
                 email: email,
             }
         });
+        if ((user === null || user === void 0 ? void 0 : user.length) === 1)
+            return user;
+        else
+            return { "email": "don't exist" };
+    }
+    async createUser(email, name, password) {
+        const exist = await this.getUser(email);
+        if ((exist === null || exist === void 0 ? void 0 : exist.email) === "don't exist") {
+            const user = await prisma.uzer.create({
+                data: {
+                    email: email,
+                    name: name,
+                }
+            });
+            return { "info": "added a new user" };
+        }
+        else
+            return { "info": "email already exist" };
+    }
+    async deleteUser(email) {
+        const exist = await this.getUser(email);
+        if ((exist === null || exist === void 0 ? void 0 : exist.email) === "don't exist") {
+            return { "info": "email don't exist" };
+        }
+        else {
+            const user = await prisma.uzer.delete({
+                where: {
+                    email: email,
+                }
+            });
+            return { "info": "deleted", "user": user };
+        }
     }
 };
 AppService = __decorate([

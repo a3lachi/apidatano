@@ -7,5 +7,15 @@ export declare class AppController {
 export declare class UserController {
     private readonly appService;
     constructor(appService: AppService);
-    getUser(): any;
+    findOne(email: string): Promise<any>;
+    createUser(name: string, email: string, password: string): Promise<{
+        info: string;
+    }>;
+    deleteUser(email: string): Promise<{
+        info: string;
+        user?: undefined;
+    } | {
+        info: string;
+        user: import(".prisma/client").uzer;
+    }>;
 }
