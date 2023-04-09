@@ -158,7 +158,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], DataController.prototype, "getUserData", null);
 __decorate([
-    (0, common_1.Post)('user'),
+    (0, common_1.Put)('user'),
     (0, swagger_1.ApiTags)('Data'),
     (0, swagger_1.ApiOperation)({ summary: 'Add user data' }),
     (0, swagger_1.ApiBody)({

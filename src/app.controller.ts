@@ -121,7 +121,7 @@ export class DataController {
     return this.appService.getUserData(email);
   }
 
-  @Post('user')
+  @Put('user')
   @ApiTags('Data')
   @ApiOperation({ summary: 'Add user data' })
   @ApiBody({
