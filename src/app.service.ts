@@ -15,7 +15,7 @@ export class AppService {
     return 'Home';
   }
   
-  async getUsers(): Promise<any> {
+  async getUsers(): Promise<Object> {
     const Users = await prisma.uzer.findMany();
     console.log(Users);
     return Users ;
@@ -27,8 +27,9 @@ export class AppService {
         email:email,
       }
     })
-    if (user?.length === 1) 
-      return user
+    if (user?.length === 1) {
+      return user[0]
+    }
     else 
       return {"email":"don't exist"}
   }
@@ -61,6 +62,37 @@ export class AppService {
       })
       return {"info":"deleted","user":user}
     }
+  }
+
+  async getUserData(email:string) {
+    const user = await this.getUser(email)
+    if ( user?.email === "don't exist") 
+      return user
+    else {
+      const data = await prisma.data.findMany({
+        where:{
+          userid:user.id
+        }
+      })
+      return data
+    }    
+  }
+
+  async postUserData(email:string , cat:string , src:string) {
+    const user = await this.getUser(email)
+    if ( user?.email === "don't exist") 
+      return user
+    else {
+      const data = await prisma.data.create({
+        data:{
+          userid:user.id,
+          cat: cat,
+          src : src,
+        }
+      })
+      return data
+    }  
+
   }
 }
 

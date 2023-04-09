@@ -25,8 +25,9 @@ let AppService = class AppService {
                 email: email,
             }
         });
-        if ((user === null || user === void 0 ? void 0 : user.length) === 1)
-            return user;
+        if ((user === null || user === void 0 ? void 0 : user.length) === 1) {
+            return user[0];
+        }
         else
             return { "email": "don't exist" };
     }
@@ -56,6 +57,34 @@ let AppService = class AppService {
                 }
             });
             return { "info": "deleted", "user": user };
+        }
+    }
+    async getUserData(email) {
+        const user = await this.getUser(email);
+        if ((user === null || user === void 0 ? void 0 : user.email) === "don't exist")
+            return user;
+        else {
+            const data = await prisma.data.findMany({
+                where: {
+                    userid: user.id
+                }
+            });
+            return data;
+        }
+    }
+    async postUserData(email, cat, src) {
+        const user = await this.getUser(email);
+        if ((user === null || user === void 0 ? void 0 : user.email) === "don't exist")
+            return user;
+        else {
+            const data = await prisma.data.create({
+                data: {
+                    userid: user.id,
+                    cat: cat,
+                    src: src,
+                }
+            });
+            return data;
         }
     }
 };

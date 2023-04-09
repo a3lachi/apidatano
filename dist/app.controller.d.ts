@@ -19,3 +19,9 @@ export declare class UserController {
         user: import(".prisma/client").uzer;
     }>;
 }
+export declare class DataController {
+    private readonly appService;
+    constructor(appService: AppService);
+    getUserData(email: string): Promise<any>;
+    postUserData(email: string, src: string, cat: string): Promise<any>;
+}

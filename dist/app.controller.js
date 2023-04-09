@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = exports.AppController = void 0;
+exports.DataController = exports.UserController = exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 const swagger_1 = require("@nestjs/swagger");
@@ -55,11 +55,15 @@ __decorate([
     (0, common_1.Get)(':email'),
     (0, swagger_1.ApiTags)('User'),
     (0, swagger_1.ApiOperation)({ summary: 'Check if user exist by email' }),
+    (0, swagger_1.ApiParam)({
+        name: "email",
+        description: "Email of the user",
+        example: "aala.simo@gmail.com"
+    }),
     (0, swagger_1.ApiOkResponse)({
         description: 'User infos',
         type: Object,
     }),
-    (0, swagger_1.ApiProperty)({ example: 'username12345' }),
     __param(0, (0, common_1.Param)('email')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -124,4 +128,68 @@ UserController = __decorate([
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], UserController);
 exports.UserController = UserController;
+let DataController = class DataController {
+    constructor(appService) {
+        this.appService = appService;
+    }
+    getUserData(email) {
+        return this.appService.getUserData(email);
+    }
+    postUserData(email, src, cat) {
+        return this.appService.postUserData(email, cat, src);
+    }
+};
+__decorate([
+    (0, common_1.Get)(':email'),
+    (0, swagger_1.ApiTags)('Data'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get user data' }),
+    (0, swagger_1.ApiOkResponse)({
+        description: 'User data',
+        type: Object,
+    }),
+    (0, swagger_1.ApiParam)({
+        name: "email",
+        description: "Email of the user",
+        example: "aala.simo@gmail.com"
+    }),
+    __param(0, (0, common_1.Param)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], DataController.prototype, "getUserData", null);
+__decorate([
+    (0, common_1.Post)('user'),
+    (0, swagger_1.ApiTags)('Data'),
+    (0, swagger_1.ApiOperation)({ summary: 'Add user data' }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: 'object',
+            properties: {
+                email: { type: 'string' },
+                cat: { type: 'string' },
+                src: { type: 'string' },
+            },
+            example: {
+                email: "jeannebaptise@live.fr",
+                cat: "Traffic",
+                src: "https://imgbb.com/sd456DFHG-dg"
+            }
+        },
+    }),
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Post data status',
+        type: Object,
+    }),
+    __param(0, (0, common_1.Body)('email')),
+    __param(1, (0, common_1.Body)('src')),
+    __param(2, (0, common_1.Body)('cat')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:returntype", void 0)
+], DataController.prototype, "postUserData", null);
+DataController = __decorate([
+    (0, common_1.Controller)('data'),
+    __metadata("design:paramtypes", [app_service_1.AppService])
+], DataController);
+exports.DataController = DataController;
 //# sourceMappingURL=app.controller.js.map
