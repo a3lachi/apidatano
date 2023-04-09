@@ -1,3 +1,5 @@
 export declare class AppService {
-    getHello(): string;
+    getHome(): string;
+    getUsers(): Promise<any>;
+    getUser(email: string): Promise<any>;
 }

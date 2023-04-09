@@ -8,9 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
 let AppService = class AppService {
-    getHello() {
-        return 'Hello World!';
+    getHome() {
+        return 'Home';
+    }
+    async getUsers() {
+        const Users = await prisma.uzer.findMany();
+        console.log(Users);
+        return Users;
+    }
+    async getUser(email) {
+        const user = prisma.uzer.findMany({
+            where: {
+                email: email,
+            }
+        });
     }
 };
 AppService = __decorate([

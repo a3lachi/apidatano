@@ -9,7 +9,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-  // swagger 
+  // SWAGGER 
   const config = new DocumentBuilder()
     .setTitle('Datano Backend')
     .setDescription('API Description')
