@@ -3,7 +3,7 @@ import { AppService  } from './app.service';
 import { ApiOperation , ApiOkResponse , ApiProperty , ApiParam, ApiBody ,ApiTags} from '@nestjs/swagger';
 
 
-@Controller()
+@Controller("home")
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
