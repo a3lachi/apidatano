@@ -9,14 +9,15 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
+  // swagger 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
-    .setVersion('1.0')
-    .addTag('cats')
+    .setTitle('Datano Backend')
+    .setDescription('API Description')
+    .setVersion('1.2')
+    .addTag('Datano')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/', app, document);
+  SwaggerModule.setup('/api', app, document);
 
 
   await app.listen(3000);
